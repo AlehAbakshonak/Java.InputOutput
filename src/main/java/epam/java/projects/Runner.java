@@ -14,16 +14,18 @@ public class Runner {
       //String filePath = "D://Music";
       String filePath = "D://result.txt";
       File dir = new File(filePath);
-      try {
-         if (!dir.exists()) {
-            throw new IOException("Path don't exist");
+      if (!dir.exists()) {
+         System.out.println("Path don't exist");
+      } else {
+         try {
+            if (dir.isFile()) {
+               System.out.println("Target is file. Begin analysing file structure.\n");
+               FileAnalyser fileAnalyser = new FileAnalyser();
+               fileAnalyser.TextFiletreeAnalyse(dir);
+            }
+         } catch (IOException ex) {
+            System.out.println(ex.getMessage());
          }
-         if (dir.isFile()) {
-             System.out.println("Target is file. Begin analysing file structure.\n");
-             FileAnalyser.TextFiletreeAnalyse(dir);
-         }
-      } catch (IOException ex) {
-         System.out.println(ex.getMessage());
       }
 
       if (dir.isDirectory()) {
